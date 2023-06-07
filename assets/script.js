@@ -1,3 +1,4 @@
+// Définition des constantes
 const slides = [
 	{
 		"image":"slide1.jpg",
@@ -17,15 +18,22 @@ const slides = [
 	}
 ]
 //selection element html
-let image = document.querySelector(".banner-img");
-let dot = document.querySelectorAll (".dot");
-let tagLine = document.querySelector ("#banner>p")
+let image = document.querySelector(".banner-img"); //Cette commande sélectionne le premier élément de la page qui correspond au sélecteur CSS ".banner-img". Elle est utilisée pour sélectionner l'élément HTML qui affiche l'image .
+let dot = document.querySelectorAll (".dot"); //Cette commande sélectionne tous les éléments de la page qui correspondent au sélecteur CSS ".dot". Elle est utilisée pour sélectionner tous les points du carousel qui indiquent les différentes images.
+let tagLine = document.querySelector ("#banner>p") //Cette commande sélectionne le premier élément de la page qui correspond au sélecteur CSS "#banner>p". Elle est utilisée pour sélectionner l'élément HTML qui affiche la ligne de texte associée à chaque images.
 let indice = 0;
 
 let arrowLeft = document.querySelector(".arrow_left");
-//ajout event listener
-arrowLeft.addEventListener("click", function(){
-	
+arrowLeft.addEventListener("click", function(){ //Cette commande ajoute un gestionnaire d'événements de clic à un élément HTML spécifié. Lorsque l'élément est cliqué, la fonction spécifiée est exécutée.
+	// Sélection du point actif
+	dot[indice].classList.remove("dot_selected"); //Cette commande supprime la classe "dot_selected" d'un élément HTML. Elle est utilisée pour désélectionner le point actif du carousel.
+	indice--;
+	if (indice < 0) 
+		indice = slides.length - 1;
+	dot[indice].classList.add("dot_selected"); //Cette commande ajoute la classe "dot_selected" à un élément HTML. Elle est utilisée pour sélectionner et mettre en surbrillance le point actif du carousel.
+
+	image.src = "./assets/images/slideshow/" + slides[indice].image; // Cette commande met à jour l'attribut "src" de l'élément HTML représentant l'image du carousel. Elle utilise la propriété "image" de l'objet correspondant à l'indice actuel pour construire le chemin de l'image.
+	tagLine.innerHTML = slides[indice].tagLine; //Cette commande met à jour le contenu HTML de l'élément représentant la ligne de texte du carousel. Elle utilise la propriété "tagLine" de l'objet correspondant à l'indice actuel.
 });
 
 let arrowRight = document.querySelector(".arrow_right");
@@ -38,7 +46,6 @@ arrowRight.addEventListener("click", function(){
 		indice = 0;
 	dot[indice].classList.add("dot_selected");
 
-	
 
 	image.src = "./assets/images/slideshow/" + slides[indice].image;
 	tagLine.innerHTML = slides[indice].tagLine;
